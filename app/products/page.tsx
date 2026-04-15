@@ -61,16 +61,32 @@ const products = [
   }
 ];
 
-export default async function ProductsPage() {
+export default async function ProductsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ category?: string }>;
+}) {
   const { userId } = await auth();
+  const sp = await searchParams;
+  const categoryFilter = sp.category;
+
+  const filteredProducts = categoryFilter 
+    ? products.filter((p) => p.category === categoryFilter)
+    : products;
 
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto flex flex-col gap-8">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 border-b border-gray-200 pb-6">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 tracking-tight">All Products</h1>
-            <p className="mt-2 text-gray-600">Discover our collection of high-quality items.</p>
+            <h1 className="text-3xl font-bold text-gray-900 tracking-tight">
+              {categoryFilter ? `${categoryFilter} Products` : "All Products"}
+            </h1>
+            <p className="mt-2 text-gray-600">
+              {categoryFilter 
+                ? `Explore our premium selection of ${categoryFilter.toLowerCase()}.` 
+                : "Discover our collection of high-quality items."}
+            </p>
           </div>
           <button className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium hover:bg-gray-100 transition">
             <Filter className="w-4 h-4" />
@@ -78,8 +94,16 @@ export default async function ProductsPage() {
           </button>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {products.map((product) => (
+        {filteredProducts.length === 0 ? (
+          <div className="text-center py-20">
+            <h2 className="text-2xl font-semibold text-gray-900">No products found in this category.</h2>
+            <Link href="/products" className="text-indigo-600 mt-4 inline-block hover:underline">
+              View all products
+            </Link>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {filteredProducts.map((product) => (
             <div key={product._id} className="group flex flex-col bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-300">
               <div className="relative aspect-square overflow-hidden bg-gray-100">
                 <Image
@@ -114,6 +138,7 @@ export default async function ProductsPage() {
             </div>
           ))}
         </div>
+        )}
       </div>
     </div>
   );
