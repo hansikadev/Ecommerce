@@ -45,7 +45,9 @@ export default async function Navbar() {
 
           <div className="pl-4 border-l border-gray-200">
             {!userId ? (
-              <SignInButton mode="modal" fallbackRedirectUrl="/"><button className="text-sm font-medium text-indigo-600 bg-indigo-50 px-4 py-2 rounded-full hover:bg-indigo-100 transition">Sign In</button></SignInButton>
+              <div className="text-sm font-medium text-indigo-600 bg-indigo-50 px-4 py-2 rounded-full hover:bg-indigo-100 transition">
+                <SignInButton mode="modal" fallbackRedirectUrl="/" />
+              </div>
             ) : (
               <UserButton 
                 appearance={{

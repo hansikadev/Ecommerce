@@ -50,6 +50,7 @@ export default function Home() {
             src="https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?q=80&w=2000&auto=format&fit=crop" 
             alt="Hero Background" 
             fill
+            sizes="100vw"
             className="object-cover opacity-10"
             priority
           />
@@ -161,6 +162,7 @@ export default function Home() {
                     src={product.image}
                     alt={product.name}
                     fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     className="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />

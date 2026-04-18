@@ -78,7 +78,7 @@ export default function SearchPage() {
                     <Link href={`/products/${product._id}`} className="group flex items-center justify-between p-4 hover:bg-gray-50 rounded-xl transition">
                       <div className="flex items-center gap-6">
                         <div className="relative h-16 w-16 bg-gray-100 rounded-lg overflow-hidden shrink-0">
-                          <Image src={product.image} alt={product.name} fill className="object-cover" />
+                          <Image src={product.image} alt={product.name} fill sizes="4rem" className="object-cover" />
                         </div>
                         <div>
                           <p className="text-lg font-semibold text-gray-900 group-hover:text-indigo-600 transition">{product.name}</p>
